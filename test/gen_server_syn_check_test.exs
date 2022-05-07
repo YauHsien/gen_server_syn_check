@@ -7,10 +7,10 @@ defmodule GenServerSynCheckTest do
     {:ok, server} = GenServer.start_link(GenServerSynCheck.Server, [pid: self()])
 
     spawn(fn -> GenServer.call(server, :any) end)
-    :timer.sleep(500)
+    :timer.sleep(10)
     GenServer.cast(server, :any)
 
-    :timer.sleep(3000)
+    :timer.sleep(5000)
     assert {:messages, [{:reply,:call,_,_}, {:reply,:cast,_,_}]} = Process.info(self(), :messages)
     assert [{:reply,:call,_,_}, {:reply,:cast,_,_}] = _receive(2)
   end
