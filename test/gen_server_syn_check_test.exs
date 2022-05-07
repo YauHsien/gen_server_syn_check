@@ -7,7 +7,7 @@ defmodule GenServerSynCheckTest do
     {:ok, server} = GenServer.start_link(GenServerSynCheck.Server, [pid: self()])
 
     spawn(fn -> GenServer.call(server, :any) end)
-    :timer.sleep(1000)
+    :timer.sleep(500)
     GenServer.cast(server, :any)
 
     :timer.sleep(3000)
